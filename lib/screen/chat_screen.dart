@@ -11,34 +11,34 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateMixin{
-  late AnimationController controller;
-  late Animation animation;
-  @override
-  void initState() {
-    super.initState();
-    controller=AnimationController(
-        duration: Duration(seconds: 2),
-        vsync: this);
-    animation=CurvedAnimation(parent: controller, curve: Curves.decelerate);
-    controller.forward();
-    animation.addStatusListener((status) {
-      if(status==AnimationStatus.completed){
-        controller.reverse(from: 1.0);
-    }else if(status==AnimationStatus.dismissed){
-        controller.forward();
-      }
-    });
-    controller.addListener(() {
-      setState(() {
-        animation.value;
-      });
-    });
-  }
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  // late AnimationController controller;
+  // late Animation animation;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   controller=AnimationController(
+  //       duration: Duration(seconds: 2),
+  //       vsync: this);
+  //   animation=CurvedAnimation(parent: controller, curve: Curves.decelerate);
+  //   controller.forward();
+  //   animation.addStatusListener((status) {
+  //     if(status==AnimationStatus.completed){
+  //       controller.reverse(from: 1.0);
+  //   }else if(status==AnimationStatus.dismissed){
+  //       controller.forward();
+  //     }
+  //   });
+  //   controller.addListener(() {
+  //     setState(() {
+  //       animation.value;
+  //     });
+  //   });
+  // }
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
               child: CircleAvatar(backgroundImage: AssetImage('assets/profile.png'),radius: 60),),
             Container(
               child: Image.asset('assets/welcome.png'),
-              height: (animation.value)*100,
+              height: 100,
             ),
             InkWell(
               onTap: (){
