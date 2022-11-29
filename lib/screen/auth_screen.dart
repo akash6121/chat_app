@@ -9,7 +9,9 @@ class Authenticate extends StatefulWidget {
   State<Authenticate> createState() => _AuthenticateState();
 }
 
-class _AuthenticateState extends State<Authenticate> {
+class _AuthenticateState extends State<Authenticate> with SingleTickerProviderStateMixin{
+  late AnimationController controller;
+  late Animation animation;
   final auth = FirebaseAuth.instance;
   bool visible = false;
   bool login = true;
@@ -55,11 +57,30 @@ class _AuthenticateState extends State<Authenticate> {
         _formkey.currentState!.save();
       }
   }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller=AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this);
+    animation=ColorTween(begin: Colors.red,end: Colors.yellow).animate(controller);
+    controller.forward();
+    controller.addListener(() {
+      print(controller.value);
+    });
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow,
+      backgroundColor: animation.value,
       body: Stack(
         children: [
           ClipPath(
@@ -76,7 +97,14 @@ class _AuthenticateState extends State<Authenticate> {
                   stops: [0.4, 0.7],
                 ),
               ),
-              child: Text('LOGIN',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 40)),
+              child: Column(
+                children: [
+                  Text('LOGIN',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 40)),
+               Hero(
+                 tag: 'logo',
+                   child: CircleAvatar(backgroundImage: AssetImage('assets/profile.png'),radius: 80,)),
+                ],
+              ),
             ),
           ),
           Center(
