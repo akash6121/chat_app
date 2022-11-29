@@ -52,7 +52,7 @@ class _AuthenticateState extends State<Authenticate> with SingleTickerProviderSt
       }
       else {
         auth.createUserWithEmailAndPassword(
-            email: _emailController.text, password: _passController.text).then((value) =>
+            email: _emailController.text, password: _passController.text,).then((value) =>
             FirebaseFirestore.instance.collection('people').doc(value.user!.uid).set({'email': value.user!.email})
         ).onError((error, stackTrace) {
           setState(() {

@@ -11,6 +11,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateMixin{
+
   // late AnimationController controller;
   // late Animation animation;
   // @override
