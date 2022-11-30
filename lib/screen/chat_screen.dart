@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_flutter_app/chat/messages.dart';
@@ -57,7 +58,20 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
             ),
             InkWell(
               onTap: (){
-                FirebaseAuth.instance.signOut();
+                showCupertinoDialog(context: context, builder: (context)=>CupertinoAlertDialog(
+                  title: Text('Alert'),
+                  content: Text('Are you sure you want to logout?'),
+                  actions: [
+                    CupertinoDialogAction(child: Text('Yes'),onPressed: (){
+                      FirebaseAuth.instance.signOut();
+                      Navigator.pop(context);
+                    },),
+                    CupertinoDialogAction(child: Text('No'),onPressed: (){
+                      Navigator.pop(context);
+                    },)
+                  ],
+                ));
+                //FirebaseAuth.instance.signOut();
               },
               child: ListTile(leading: Icon(Icons.logout,color: Colors.white),
                 title: Text('LOGOUT',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
